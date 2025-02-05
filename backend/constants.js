@@ -1,1 +1,1 @@
-export const DB_NAME="jobify";
+export const DB_NAME="jobportal";
