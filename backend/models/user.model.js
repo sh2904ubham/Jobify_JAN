@@ -8,12 +8,14 @@ const userSchema=new mongoose.Schema(
         email:
         {
             type:String,
-            required:true
+            required:true,
+            unique:true,
         },
         phoneNumber:
         {
             type:String,
-            required:true
+            required:true,
+            
         },
         password:
         {
@@ -25,7 +27,7 @@ const userSchema=new mongoose.Schema(
             type:String,
             enum:["JobSeeker","Recruiter"],
             default:"JobSeeker",
-            required:true
+            
         },
         profile: {
             bio:{

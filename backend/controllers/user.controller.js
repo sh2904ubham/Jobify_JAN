@@ -9,9 +9,9 @@ import {ApiResponse} from "../utils/ApiResponse.js";
 
  export const register=asyncHandler( async(req,res)=>{
     try {
-        const { fullName, email, phoneNumber,role}=req.body;
+        const { fullName, email,password, phoneNumber,role}=req.body;
         if (
-            [fullName, email, phoneNumber, role].some((field) => field?.trim() === "")
+            [fullName, email,password, phoneNumber, role].some((field) => field?.trim() === "")
         ) {
             throw new ApiError(400, "All fields are required")
         }
@@ -20,39 +20,43 @@ import {ApiResponse} from "../utils/ApiResponse.js";
         if(user) {
             throw new ApiError(400, "Email Already exist")
         }
+    //     const file=req.file;
+    //    // const file=req.file;
+    //    console.log("Received File:", req.file); // Debugging
+    //     console.log("Request Body:", req.body);
 
-        const file=req.file;
-        if(!file)
-        {
-            throw new ApiError(400, "Profile Image is required")
-        }
+    //     if(!file)
+    //     {
+    //         throw new ApiError(400, "Profile Image is required")
+    //     }
 
-        const fileUri=getDataUri(file);
-        const cloudResponse= await cloudinary.uploader.upload(fileUri.content);
+    //     const fileUri=getDataUri(file);
+    //     const cloudResponse= await cloudinary.uploader.upload(fileUri.content);
         const hashedPassword=await bcrypt.hash(password,10);
         const newUser= new User (
             {
                 fullName,
                 email,
                 phoneNumber,
-                role,
+                
                 password:hashedPassword,
-                profile: {
-                    profilePhoto: cloudResponse.secure_url,
+                role,
+                // profile: {
+                //     profilePhoto: cloudResponse.secure_url,
                     
-                },
+                // },
 
             }
         );
 
         await newUser.save();
         return res.status(201).json(
-            new ApiResponse(200, createdUser, "User registered Successfully")
+            new ApiResponse(200, newUser, "User registered Successfully")
         )
 
     }
     catch (error) {
-        throw new ApiError(400, error.message)
+        throw new ApiError(400, error.message,"insdfgh")
     
     };
 
@@ -76,7 +80,7 @@ import {ApiResponse} from "../utils/ApiResponse.js";
 
         const isMatch= await bcrypt.compare(password, user.password);
         if(!isMatch) {
-            throw new ApiError(400, "Invcorrect email or password")
+            throw new ApiError(400, "Incorrect email or password")
         }
 
         if(user.role !== role)
@@ -91,11 +95,12 @@ import {ApiResponse} from "../utils/ApiResponse.js";
         });
         const sanitizedUser = {
             _id: user._id,
-            fullname: user.fullname,
+            //fullname: user.fullname,
+            fullName:user.fullName,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            adharcard: user.adharcard,
-            pancard: user.pancard,
+            //adharcard: user.adharcard,
+            //pancard: user.pancard,
             role: user.role,
             profile: user.profile,
           };
@@ -133,7 +138,7 @@ export const logout =asyncHandler( async(req,res)=>{
 
 export const updateProfile =asyncHandler( async(req,res)=>{
     try {
-        const {fullname,email,phoneNumber,bio,skills}=req.body;
+        const {fullName,email,phoneNumber,bio,skills}=req.body;
     const file=req.file;
 
 
@@ -145,7 +150,7 @@ export const updateProfile =asyncHandler( async(req,res)=>{
             throw new ApiError(400,"User not found")
         }
 
-        if (fullname) user.fullname = fullname;
+        if (fullName) user.fullName = fullname;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
@@ -162,7 +167,7 @@ export const updateProfile =asyncHandler( async(req,res)=>{
 
     const upDatedUser={
         id: user._id,
-        fullname: user.fullname,
+        fullName: user.fullName,
         email: user.email,
         phoneNumber: user.phoneNumber,
         role: user.role,
