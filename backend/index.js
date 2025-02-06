@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { connect } from 'mongoose';
 import  connectDB  from './utils/db.js';
 import userRoute from "./routes/user.routes.js"
+import companyRoute from "./routes/company.routes.js"
 dotenv.config({});
 const app=express();
 
@@ -25,6 +26,8 @@ const PORT = process.env.PORT || 8080;
 //api's
 
 app.use("/api/v1/users",userRoute);
+app.use("/api/v1/company",companyRoute);
+
 app.listen(PORT,()=>{
     connectDB();
     console.log(`server is listening at port ${PORT}`);

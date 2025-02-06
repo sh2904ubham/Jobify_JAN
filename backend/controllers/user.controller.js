@@ -56,7 +56,7 @@ import {ApiResponse} from "../utils/ApiResponse.js";
 
     }
     catch (error) {
-        throw new ApiError(400, error.message,"insdfgh")
+        throw new ApiError(400, error.message,"Some error")
     
     };
 
