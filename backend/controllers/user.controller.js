@@ -142,7 +142,7 @@ export const updateProfile =asyncHandler( async(req,res)=>{
 
         if(!user)
         {
-            throw new ApiError(400, error.message,"User not found")
+            throw new ApiError(400,"User not found")
         }
 
         if (fullname) user.fullname = fullname;
@@ -157,12 +157,7 @@ export const updateProfile =asyncHandler( async(req,res)=>{
       user.profile.resume = cloudResponse.secure_url;
       user.profile.resumeOriginalName = file.originalname;
     }
-    if (file) {
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        user.profile.resume = cloudResponse.secure_url;
-        user.profile.resumeOriginalName = file.originalname;
-      }
+    // 
     await user.save();
 
     const upDatedUser={
