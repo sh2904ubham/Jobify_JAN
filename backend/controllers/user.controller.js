@@ -150,7 +150,7 @@ export const updateProfile =asyncHandler( async(req,res)=>{
             throw new ApiError(400,"User not found")
         }
 
-        if (fullName) user.fullName = fullname;
+        if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
