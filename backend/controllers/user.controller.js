@@ -113,7 +113,7 @@ import {ApiResponse} from "../utils/ApiResponse.js";
               sameSite: "Strict",
             })
             .json({
-              message: `Welcome back ${user.fullname}`,
+              message: `Welcome back ${user.fullName}`,
               user: sanitizedUser,
               success: true,
             });
