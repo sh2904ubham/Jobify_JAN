@@ -42,7 +42,7 @@ const userSchema=new mongoose.Schema(
                 type:String,//original name of file
             },
             company: {
-                type: monggose.Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Company"
             },
             profilePhoto: {

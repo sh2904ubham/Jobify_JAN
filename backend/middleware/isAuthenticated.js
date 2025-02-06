@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 
 // import { asyncHandler } from "../utils/asyncHandler";
- import { ApiError } from "../utils/ApiError";
+ import {ApiError} from "../utils/ApiError.js"
 
-const authenticateToken = (req,res,next)
+const authenticateToken = (req,res,next)=>{
 try {
     const token=req.cookies.token;
     if(!token) {
@@ -21,4 +21,5 @@ try {
     {
         throw new ApiError(401,"iNVALID TOKEN");
     }
+}
 export default authenticateToken;

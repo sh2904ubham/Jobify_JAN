@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken";
  import getDataUri from "../utils/datauri.js";
  import cloudinary from "../utils/cloudinary.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import ApiError from "../utils/ApiError.js";
-import ApiResponse from "../utils/ApiResponse.js";
+import {ApiError} from "../utils/ApiError.js";
+import {ApiResponse} from "../utils/ApiResponse.js";
 
  export const register=asyncHandler( async(req,res)=>{
     try {
