@@ -5,7 +5,7 @@ import { ApiResponse} from "../utils/ApiResponse.js";
 
 //Admin Job Posting
 
-export const Job = asyncHandler( async(req,res)=>{
+export const postJob = asyncHandler( async(req,res)=>{
     try {
         const {
             title,
