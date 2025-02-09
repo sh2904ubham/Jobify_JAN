@@ -8,6 +8,13 @@ const Navbar = () => {
           Job<span className="text-[#022bf8]">ify</span>
         </h1>
       </div>
+      <div>
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+      </div>
     </div>
   );
 };
