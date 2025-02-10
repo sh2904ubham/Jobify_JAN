@@ -33,18 +33,24 @@ const Navbar = () => {
           </ul>
           {!user ? (
             <div className="flex gap-4">
-              <Button
-                variant="outline"
-                className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
-              >
-                Login
-              </Button>
-              <Button
-                variant="primary"
-                className="bg-blue-600 text-white hover:bg-red-700 transition-all"
-              >
-                Register
-              </Button>
+              <Link to="/login">
+                {" "}
+                <Button
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link to="/register">
+                {" "}
+                <Button
+                  variant="primary"
+                  className="bg-blue-600 text-white hover:bg-red-700 transition-all"
+                >
+                  Register
+                </Button>
+              </Link>
             </div>
           ) : (
             <Popover>
