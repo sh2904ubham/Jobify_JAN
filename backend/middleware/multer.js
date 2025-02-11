@@ -20,4 +20,4 @@ const fileFilter = (req, file, cb) => {
 };
 
 // Create Upload Middleware
-export const singleUpload = multer({ storage, fileFilter }).single("logo");
+export const singleUpload = multer({ storage, fileFilter }).single("file");
