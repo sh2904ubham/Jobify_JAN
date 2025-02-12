@@ -7,10 +7,16 @@ import { RadioGroup } from "../ui/radio-group";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/data";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
+import store from "@/redux/store";
+import { Button } from "../ui/button";
+import { Loader, Loader2 } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate(); // Initialize navigation
-
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -25,6 +31,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
         headers: {
           "Content-Type": "application/json",
@@ -39,6 +46,8 @@ const Login = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Login failed");
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -110,16 +119,23 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-
-          {/* Submit Button */}
-          <div className="flex flex-col items-center mt-6">
+          {loading ? (
+            <div className="flex items-center justify-center my-10">
+              <div className="spinner-border text-blue-600 role=status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
             <button
               type="submit"
               className="bg-violet-500 text-white px-6 py-3 rounded-lg hover:bg-violet-600 transition duration-300 w-full shadow-md"
             >
               Login
             </button>
+          )}
 
+          {/* Submit Button */}
+          <div className="flex flex-col items-center mt-6">
             {/* Don't have an account? Register */}
             <p className="text-gray-600 mt-4 text-sm">
               Don't have an account?{" "}

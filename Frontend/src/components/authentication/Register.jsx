@@ -7,7 +7,9 @@ import { RadioGroup } from "../ui/radio-group";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/data";
 import { toast } from "sonner";
-
+import { useDispatch, useSelector } from "react-redux";
+import store from "@/redux/store";
+import { setLoading } from "@/redux/authSlice";
 const Register = () => {
   const [input, setInput] = useState({
     fullName: "",
@@ -18,7 +20,8 @@ const Register = () => {
     file: "",
   });
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -39,6 +42,7 @@ const Register = () => {
     //const { password } = input;
     //console.log(input);
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -55,6 +59,8 @@ const Register = () => {
         ? error.response.data.message
         : "An unexpected error occured";
       toast.error(errorMessage);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   return (
@@ -161,16 +167,23 @@ const Register = () => {
               />
             </div>
           </div>
-
-          {/* Submit Button */}
-          <div className="flex flex-col items-center mt-6">
+          {loading ? (
+            <div className="flex items-center justify-center my-10">
+              <div className="spinner-border text-blue-600 role=status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
             <button
               type="submit"
               className="bg-violet-500 text-white px-6 py-2 rounded-lg hover:bg-violet-600 transition w-full"
             >
               Register
             </button>
+          )}
 
+          {/* Submit Button */}
+          <div className="flex flex-col items-center mt-6">
             {/* Already have an account? Login */}
             <p className="text-gray-600 mt-4 text-sm">
               Already have an account?{" "}

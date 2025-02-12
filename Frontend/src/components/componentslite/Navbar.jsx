@@ -14,7 +14,8 @@ const Navbar = () => {
         {/* Logo */}
         <div>
           <h1 className="text-3xl font-extrabold">
-            Job<span className="text-[#022bf8]">ify</span>
+            <span className="text-[#FA4F09]">Job</span>
+            <span className="text-[#6B3AC2]">ify</span>
           </h1>
         </div>
 
