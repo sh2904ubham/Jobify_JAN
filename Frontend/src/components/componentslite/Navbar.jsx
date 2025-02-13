@@ -23,13 +23,13 @@ const Navbar = () => {
         <div className="flex items-center gap-12">
           <ul className="flex font-semibold text-gray-700 items-center gap-8">
             <li className="hover:text-blue-600 transition-all">
-              <Link to="/">Home</Link>
+              <Link to="/Home">Home</Link>
             </li>
             <li className="hover:text-blue-600 transition-all">
               <Link to="/browse">Browse</Link>
             </li>
             <li className="hover:text-blue-600 transition-all">
-              <Link to="/jobs">Job</Link>
+              <Link to="/Jobs">Job</Link>
             </li>
           </ul>
           {!user ? (
