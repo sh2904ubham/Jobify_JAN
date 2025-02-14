@@ -29,7 +29,7 @@ const Navbar = () => {
               <Link to="/browse">Browse</Link>
             </li>
             <li className="hover:text-blue-600 transition-all">
-              <Link to="/Jobs">Job</Link>
+              <Link to="/Jobs">Jobs</Link>
             </li>
           </ul>
           {!user ? (
